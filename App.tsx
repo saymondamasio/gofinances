@@ -1,8 +1,8 @@
 import {
-  useFonts,
   Poppins_400Regular,
   Poppins_500Medium,
   Poppins_700Bold,
+  useFonts,
 } from '@expo-google-fonts/poppins'
 import AppLoading from 'expo-app-loading'
 import React from 'react'

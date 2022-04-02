@@ -2,11 +2,11 @@ import { Feather } from '@expo/vector-icons'
 import { RFValue } from 'react-native-responsive-fontsize'
 import styled, { css } from 'styled-components/native'
 
-interface TypeProps {
+interface ITypeProps {
   type: 'up' | 'down' | 'total'
 }
 
-export const Container = styled.View<TypeProps>`
+export const Container = styled.View<ITypeProps>`
   background-color: ${({ theme, type }) =>
     type === 'total' ? theme.colors.secondary : theme.colors.shape};
 
@@ -24,7 +24,7 @@ export const Header = styled.View`
   justify-content: space-between;
 `
 
-export const Icon = styled(Feather)<TypeProps>`
+export const Icon = styled(Feather)<ITypeProps>`
   font-size: ${RFValue(40)}px;
 
   ${({ type }) =>
@@ -46,7 +46,7 @@ export const Icon = styled(Feather)<TypeProps>`
     `};
 `
 
-export const Title = styled.Text<TypeProps>`
+export const Title = styled.Text<ITypeProps>`
   font-family: ${({ theme }) => theme.fonts.regular};
   font-size: ${RFValue(14)}px;
 
@@ -56,7 +56,7 @@ export const Title = styled.Text<TypeProps>`
 
 export const Footer = styled.View``
 
-export const Amount = styled.Text<TypeProps>`
+export const Amount = styled.Text<ITypeProps>`
   font-family: ${({ theme }) => theme.fonts.medium};
   font-size: ${RFValue(32)}px;
 
@@ -65,7 +65,7 @@ export const Amount = styled.Text<TypeProps>`
 
   margin-top: 38px;
 `
-export const LastTransaction = styled.Text<TypeProps>`
+export const LastTransaction = styled.Text<ITypeProps>`
   font-family: ${({ theme }) => theme.fonts.regular};
   font-size: ${RFValue(12)}px;
 

@@ -8,7 +8,7 @@ import {
   Title,
 } from './styles'
 
-interface Props {
+interface IProps {
   title: string
   amount: string
   lastTransaction: string
@@ -21,7 +21,12 @@ const icon = {
   total: 'dollar-sign',
 }
 
-export function HighlightCard({ amount, lastTransaction, title, type }: Props) {
+export function HighlightCard({
+  amount,
+  lastTransaction,
+  title,
+  type,
+}: IProps) {
   return (
     <Container type={type}>
       <Header>
