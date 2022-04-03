@@ -5,7 +5,13 @@ import { useTheme } from 'styled-components/native'
 import { Dashboard } from '../screens/Dashboard'
 import { Register } from '../screens/Register'
 
-const { Navigator, Screen } = createBottomTabNavigator()
+export type AppRoutesParamList = {
+  Listagem: undefined // <- undefined = rota não requer parâmetros.
+  Cadastrar: undefined
+  Resumo: undefined
+}
+
+const { Navigator, Screen } = createBottomTabNavigator<AppRoutesParamList>()
 
 export function AppRoutes() {
   const theme = useTheme()
