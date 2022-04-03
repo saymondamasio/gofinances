@@ -5,11 +5,11 @@ import styled, { css } from 'styled-components/native'
 
 interface ContainerProps {
   isActive: boolean
-  type: 'up' | 'down'
+  type: 'positive' | 'negative'
 }
 
 interface IconProps {
-  type: 'up' | 'down'
+  type: 'positive' | 'negative'
 }
 
 export const Container = styled.View<ContainerProps>`
@@ -20,7 +20,7 @@ export const Container = styled.View<ContainerProps>`
 
   ${({ type, isActive }) =>
     isActive &&
-    type === 'up' &&
+    type === 'positive' &&
     css`
       background-color: ${({ theme }) => theme.colors.success_light};
       border-width: 0;
@@ -28,7 +28,7 @@ export const Container = styled.View<ContainerProps>`
 
   ${({ type, isActive }) =>
     isActive &&
-    type === 'down' &&
+    type === 'negative' &&
     css`
       background-color: ${({ theme }) => theme.colors.attention_light};
       border-width: 0;
@@ -46,7 +46,7 @@ export const Icon = styled(Feather)<IconProps>`
   margin-right: 12px;
 
   color: ${({ theme, type }) =>
-    type === 'up' ? theme.colors.success : theme.colors.attention};
+    type === 'positive' ? theme.colors.success : theme.colors.attention};
 `
 
 export const Button = styled(RectButton)`
