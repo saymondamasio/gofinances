@@ -9,6 +9,7 @@ import {
   Header,
   HighlightCards,
   Icon,
+  LogoutButton,
   Photo,
   Title,
   Transactions,
@@ -84,7 +85,9 @@ export function Dashboard() {
             </User>
           </UserInfo>
 
-          <Icon name="power" />
+          <LogoutButton>
+            <Icon name="power" />
+          </LogoutButton>
         </UserInfoWrapper>
       </Header>
       <HighlightCards>

@@ -7,6 +7,7 @@ import {
 import { NavigationContainer } from '@react-navigation/native'
 import AppLoading from 'expo-app-loading'
 import React from 'react'
+import { GestureHandlerRootView } from 'react-native-gesture-handler'
 import { ThemeProvider } from 'styled-components/native'
 import theme from './src/global/styles/theme'
 import { AppRoutes } from './src/routes/app.routes'
@@ -22,10 +23,12 @@ export default function App() {
     return <AppLoading />
   }
   return (
-    <ThemeProvider theme={theme}>
-      <NavigationContainer>
-        <AppRoutes />
-      </NavigationContainer>
-    </ThemeProvider>
+    <GestureHandlerRootView style={{ flex: 1 }}>
+      <ThemeProvider theme={theme}>
+        <NavigationContainer>
+          <AppRoutes />
+        </NavigationContainer>
+      </ThemeProvider>
+    </GestureHandlerRootView>
   )
 }
