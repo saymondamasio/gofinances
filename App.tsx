@@ -13,7 +13,6 @@ import { GestureHandlerRootView } from 'react-native-gesture-handler'
 import { ThemeProvider } from 'styled-components/native'
 import { AuthProvider } from './src/contexts/AuthContext'
 import theme from './src/global/styles/theme'
-import { useAuth } from './src/hooks/auth'
 import { Routes } from './src/routes'
 
 export default function App() {
@@ -23,9 +22,7 @@ export default function App() {
     Poppins_700Bold,
   })
 
-  const { userStorageLoading } = useAuth()
-
-  if (!fontsLoaded || userStorageLoading) {
+  if (!fontsLoaded) {
     return <AppLoading />
   }
   return (
