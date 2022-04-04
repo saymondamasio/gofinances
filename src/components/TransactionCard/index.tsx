@@ -29,6 +29,7 @@ export function TransactionCard({
   data: { amountFormatted, category, name, dateFormatted, type },
 }: IProps) {
   const categoryItem = categories.find(item => item.key === category)!
+
   return (
     <Container>
       <Title>{name}</Title>
