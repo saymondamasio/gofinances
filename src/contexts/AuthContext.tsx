@@ -2,7 +2,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage'
 import axios from 'axios'
 import * as AppleAuthentication from 'expo-apple-authentication'
 import * as AuthSession from 'expo-auth-session'
-import { createContext, ReactNode, useState } from 'react'
+import { createContext, ReactNode, useEffect, useState } from 'react'
 
 const { CLIENT_ID } = process.env
 const { REDIRECT_URI } = process.env
@@ -29,6 +29,8 @@ interface IAuthContextData {
   user: IUser
   signInWithGoogle: () => Promise<void>
   signInWithApple: () => Promise<void>
+  signOut: () => Promise<void>
+  userStorageLoading: boolean
 }
 
 interface IProps {
@@ -37,8 +39,25 @@ interface IProps {
 
 export function AuthProvider({ children }: IProps) {
   const [user, setUser] = useState<IUser>({} as IUser)
+  const [userStorageLoading, setUserStorageLoading] = useState(true)
 
   const userStorageKey = '@gofinances:user'
+
+  async function loadUserStorageData() {
+    setUserStorageLoading(true)
+    const userStorageRaw = await AsyncStorage.getItem(userStorageKey)
+
+    if (userStorageRaw) {
+      const userLogged = JSON.parse(userStorageRaw) as IUser
+      setUser(userLogged)
+    }
+
+    setUserStorageLoading(false)
+  }
+
+  useEffect(() => {
+    loadUserStorageData()
+  }, [])
 
   async function signInWithApple() {
     try {
@@ -94,8 +113,21 @@ export function AuthProvider({ children }: IProps) {
     }
   }
 
+  async function signOut() {
+    setUser({} as IUser)
+    await AsyncStorage.removeItem(userStorageKey)
+  }
+
   return (
-    <AuthContext.Provider value={{ user, signInWithGoogle, signInWithApple }}>
+    <AuthContext.Provider
+      value={{
+        user,
+        signInWithGoogle,
+        signInWithApple,
+        signOut,
+        userStorageLoading,
+      }}
+    >
       {children}
     </AuthContext.Provider>
   )
