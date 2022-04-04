@@ -4,7 +4,6 @@ import {
   Poppins_700Bold,
   useFonts,
 } from '@expo-google-fonts/poppins'
-import { NavigationContainer } from '@react-navigation/native'
 import AppLoading from 'expo-app-loading'
 import { StatusBar } from 'expo-status-bar'
 import 'intl'
@@ -14,7 +13,7 @@ import { GestureHandlerRootView } from 'react-native-gesture-handler'
 import { ThemeProvider } from 'styled-components/native'
 import { AuthProvider } from './src/contexts/AuthContext'
 import theme from './src/global/styles/theme'
-import { SignIn } from './src/screens/SignIn'
+import { Routes } from './src/routes'
 
 export default function App() {
   const [fontsLoaded] = useFonts({
@@ -30,11 +29,9 @@ export default function App() {
     <GestureHandlerRootView style={{ flex: 1 }}>
       <StatusBar style="light" translucent backgroundColor="transparent" />
       <ThemeProvider theme={theme}>
-        <NavigationContainer>
-          <AuthProvider>
-            <SignIn />
-          </AuthProvider>
-        </NavigationContainer>
+        <AuthProvider>
+          <Routes />
+        </AuthProvider>
       </ThemeProvider>
     </GestureHandlerRootView>
   )
