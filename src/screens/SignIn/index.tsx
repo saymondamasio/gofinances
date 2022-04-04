@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { ActivityIndicator, Alert } from 'react-native'
+import { ActivityIndicator, Alert, Platform } from 'react-native'
 import { RFValue } from 'react-native-responsive-fontsize'
 import { useTheme } from 'styled-components'
 import AppleIcon from '../../assets/apple.svg'
@@ -28,14 +28,11 @@ export function SignIn() {
     setIsLoading(true)
     try {
       await signInWithGoogle()
-
-      return
     } catch (error) {
+      setIsLoading(false)
       console.log(`SignIn -  ${error}`)
 
       Alert.alert('Não foi possível conectar a conta Google')
-    } finally {
-      setIsLoading(false)
     }
   }
 
@@ -43,14 +40,11 @@ export function SignIn() {
     setIsLoading(true)
     try {
       await signInWithApple()
-
-      return
     } catch (error) {
+      setIsLoading(false)
       console.log(`SignIn -  ${error}`)
 
       Alert.alert('Não foi possível conectar a conta Google')
-    } finally {
-      setIsLoading(false)
     }
   }
 
@@ -76,11 +70,13 @@ export function SignIn() {
             title="Entrar com Google"
             onPress={handleSignInWithGoogle}
           />
-          <SignInSocialButton
-            svg={AppleIcon}
-            title="Entrar com Apple"
-            onPress={handleSignInWithApple}
-          />
+          {Platform.OS === 'ios' && (
+            <SignInSocialButton
+              svg={AppleIcon}
+              title="Entrar com Apple"
+              onPress={handleSignInWithApple}
+            />
+          )}
         </FooterWrapper>
 
         {isLoading && (

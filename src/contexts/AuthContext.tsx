@@ -69,11 +69,15 @@ export function AuthProvider({ children }: IProps) {
       })
 
       if (credential) {
+        const name = credential.fullName?.givenName!
+        const fullName = `${name} ${credential.fullName?.familyName}`
         const userLogged = {
           id: String(credential.user),
-          name: credential.fullName?.givenName!,
+          name,
           email: credential.email!,
-          photo: undefined,
+          photo: `https://ui-avatars.com/api/?name=${encodeURI(
+            fullName
+          )}&length=2&background=363f5f&color=fff`,
         }
 
         setUser(userLogged)

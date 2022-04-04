@@ -46,7 +46,7 @@ interface IHighlightData {
 export function Dashboard() {
   const [isLoading, setIsLoading] = useState(true)
 
-  const { signOut } = useAuth()
+  const { signOut, user } = useAuth()
 
   const theme = useTheme()
 
@@ -213,13 +213,11 @@ export function Dashboard() {
           <Header>
             <UserInfoWrapper>
               <UserInfo>
-                <Photo
-                  source={{ uri: 'https://github.com/saymondamasio.png' }}
-                />
+                <Photo source={{ uri: user.photo }} />
 
                 <User>
                   <UserGreeting>Olá,</UserGreeting>
-                  <UserName>Saymon</UserName>
+                  <UserName>{user.name}</UserName>
                 </User>
               </UserInfo>
 
