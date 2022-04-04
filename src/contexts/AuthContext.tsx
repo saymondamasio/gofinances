@@ -1,4 +1,6 @@
+import AsyncStorage from '@react-native-async-storage/async-storage'
 import axios from 'axios'
+import * as AppleAuthentication from 'expo-apple-authentication'
 import * as AuthSession from 'expo-auth-session'
 import { createContext, ReactNode, useState } from 'react'
 
@@ -26,6 +28,7 @@ interface IAuthorizationGoogleResponse {
 interface IAuthContextData {
   user: IUser
   signInWithGoogle: () => Promise<void>
+  signInWithApple: () => Promise<void>
 }
 
 interface IProps {
@@ -34,6 +37,31 @@ interface IProps {
 
 export function AuthProvider({ children }: IProps) {
   const [user, setUser] = useState<IUser>({} as IUser)
+
+  const userStorageKey = '@gofinances:user'
+
+  async function signInWithApple() {
+    try {
+      const credential = await AppleAuthentication.signInAsync({
+        requestedScopes: [
+          AppleAuthentication.AppleAuthenticationScope.EMAIL,
+          AppleAuthentication.AppleAuthenticationScope.FULL_NAME,
+        ],
+      })
+
+      if (credential) {
+        const userLogged = {
+          id: String(credential.user),
+          name: credential.fullName?.givenName!,
+          email: credential.email!,
+          photo: undefined,
+        }
+
+        setUser(userLogged)
+        await AsyncStorage.setItem(userStorageKey, JSON.stringify(userLogged))
+      }
+    } catch (error) {}
+  }
 
   async function signInWithGoogle() {
     try {
@@ -51,12 +79,15 @@ export function AuthProvider({ children }: IProps) {
           `https://www.googleapis.com/oauth2/v1/userinfo?alt=json&access_token=${params.access_token}`
         )
 
-        setUser({
+        const userLogged = {
           id: userInfo.id,
           name: userInfo.given_name,
           email: userInfo.email,
           photo: userInfo.picture,
-        })
+        }
+
+        setUser(userLogged)
+        await AsyncStorage.setItem(userStorageKey, JSON.stringify(userLogged))
       }
     } catch (error) {
       throw new Error(error as string)
@@ -64,7 +95,7 @@ export function AuthProvider({ children }: IProps) {
   }
 
   return (
-    <AuthContext.Provider value={{ user, signInWithGoogle }}>
+    <AuthContext.Provider value={{ user, signInWithGoogle, signInWithApple }}>
       {children}
     </AuthContext.Provider>
   )
