@@ -115,8 +115,6 @@ export function Dashboard() {
       }
     )
 
-    console.log(collection, firstTransactionFormatted, lastTransactionFormatted)
-
     return firstTransaction.getFullYear() === lastTransaction.getFullYear()
       ? `${firstTransactionFormatted} ~ ${lastTransactionFormatted}`
       : `${firstTransactionFormatted}, ${firstTransaction.getFullYear()} ~ ${lastTransactionFormatted}, ${lastTransaction.getFullYear()}`
