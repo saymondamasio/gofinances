@@ -8,6 +8,7 @@ import {
   ITransactionCardProps,
   TransactionCard,
 } from '../../components/TransactionCard'
+import { useAuth } from '../../hooks/auth'
 import { formatCurrency } from '../../utils/formatCurrency'
 import {
   Container,
@@ -44,6 +45,8 @@ interface IHighlightData {
 
 export function Dashboard() {
   const [isLoading, setIsLoading] = useState(true)
+
+  const { signOut } = useAuth()
 
   const theme = useTheme()
 
@@ -220,7 +223,7 @@ export function Dashboard() {
                 </User>
               </UserInfo>
 
-              <LogoutButton>
+              <LogoutButton onPress={signOut}>
                 <Icon name="power" />
               </LogoutButton>
             </UserInfoWrapper>
