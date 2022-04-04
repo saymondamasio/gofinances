@@ -51,7 +51,7 @@ export function Dashboard() {
   const theme = useTheme()
 
   const [transactions, setTransactions] = useState<IDataListProps[]>([])
-  const dataKey = '@gofinances:transactions'
+  const dataKey = `@gofinances:transactions_user:${user.id}`
 
   const [highlightData, setHighlightData] = useState<IHighlightData>(
     {} as IHighlightData

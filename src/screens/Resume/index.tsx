@@ -9,6 +9,7 @@ import { RFValue } from 'react-native-responsive-fontsize'
 import { useTheme } from 'styled-components/native'
 import { VictoryPie } from 'victory-native'
 import { HistoryCard } from '../../components/HistoryCard'
+import { useAuth } from '../../hooks/auth'
 import { categories } from '../../utils/categories'
 import { formatCurrency } from '../../utils/formatCurrency'
 import { LoadContainer } from '../Dashboard/styles'
@@ -50,6 +51,10 @@ export function Resume() {
 
   const theme = useTheme()
 
+  const { user } = useAuth()
+
+  const dataKey = `@gofinances:transactions_user:${user.id}`
+
   useFocusEffect(
     useCallback(() => {
       loadData()
@@ -66,8 +71,6 @@ export function Resume() {
 
   async function loadData() {
     setIsLoading(true)
-
-    const dataKey = '@gofinances:transactions'
 
     const rawData = await AsyncStorage.getItem(dataKey)
     const data: TransactionData[] = rawData ? JSON.parse(rawData) : []

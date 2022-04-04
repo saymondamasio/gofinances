@@ -11,6 +11,7 @@ import { Button } from '../../components/Form/Button'
 import { CategorySelectButton } from '../../components/Form/CategorySelectButton'
 import { InputForm } from '../../components/Form/InputForm'
 import { TransactionTypeButton } from '../../components/Form/TransactionTypeButton'
+import { useAuth } from '../../hooks/auth'
 import { AppRoutesParamList } from '../../routes/app.routes'
 import { CategorySelect } from '../CategorySelect'
 import {
@@ -41,7 +42,9 @@ const schema = Yup.object().shape({
 })
 
 export function Register() {
-  const dataKey = '@gofinances:transactions'
+  const { user } = useAuth()
+
+  const dataKey = `@gofinances:transactions_user:${user.id}`
   const {
     control,
     handleSubmit,
