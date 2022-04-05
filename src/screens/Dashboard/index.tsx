@@ -57,9 +57,6 @@ export function Dashboard() {
     {} as IHighlightData
   )
 
-  let entriesTotal = 0
-  let expensiveTotal = 0
-
   function getLastTransactionDate(
     collection: IDataListProps[],
     type: 'positive' | 'negative'
@@ -88,6 +85,10 @@ export function Dashboard() {
   }
 
   function getTotalIntervalTransactionDate(collection: IDataListProps[]) {
+    if (collection.length === 0) {
+      return ''
+    }
+
     const lastTransaction = new Date(
       Math.max.apply(
         Math,
@@ -118,6 +119,10 @@ export function Dashboard() {
       }
     )
 
+    if (!firstTransaction || !lastTransaction) {
+      return ''
+    }
+
     return firstTransaction.getFullYear() === lastTransaction.getFullYear()
       ? `${firstTransactionFormatted} ~ ${lastTransactionFormatted}`
       : `${firstTransactionFormatted}, ${firstTransaction.getFullYear()} ~ ${lastTransactionFormatted}, ${lastTransaction.getFullYear()}`
@@ -127,6 +132,9 @@ export function Dashboard() {
     const dataRaw = await AsyncStorage.getItem(dataKey)
 
     const transactions: IDataListProps[] = dataRaw ? JSON.parse(dataRaw) : []
+
+    let entriesTotal = 0
+    let expensiveTotal = 0
 
     const transactionsFormatted = transactions.map(transaction => {
       const amountFormatted = Number(transaction.amount).toLocaleString(

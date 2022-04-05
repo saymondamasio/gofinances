@@ -1,0 +1,52 @@
+{
+  "name": "GoFinances",
+  "description": "Um app para gerenciar seus gastos e ganhos, com gráfico para identificar rapidamente com que você está gastando mais. Desenvolvido com o fluxo managed workflow do react native que traz todas as vantagens do Expo.",
+  "short_description": "App financeiro perfeito para você",
+  "techs": [
+    {
+      "name": "React.js",
+      "url": "https://reactjs.org"
+    },
+    {
+      "name": "React Native",
+      "url": "https://expo.io"
+    },
+    {
+      "name": "Expo",
+      "url": "https://oblador.github.io/react-native-vector-icons"
+    },
+    {
+      "name": "React Navigation",
+      "url": "https://reactnavigation.org"
+    },
+    {
+      "name": "Expo Authentication",
+      "url": "https://docs.expo.dev/guides/authentication"
+    },
+    {
+      "name": "Styled Components",
+      "url": "https://www.styled-components.com"
+    },
+    {
+      "name": "Victory Charts",
+      "url": "https://formidable.com/open-source/victory"
+    },
+    {
+      "name": "React Hook Form",
+      "url": "https://react-hook-form.com"
+    },
+    {
+      "name": "Vector Icons",
+      "url": "https://oblador.github.io/react-native-vector-icons"
+    }
+  ],
+  "videos": [
+    "https://raw.githubusercontent.com/saymondamasio/todos-mobile/main/.github/demonstration.mp4"
+  ],
+  "images": [
+    "https://raw.githubusercontent.com/saymondamasio/todos-mobile/main/.github/screenshot-1.png",
+    "https://raw.githubusercontent.com/saymondamasio/todos-mobile/main/.github/screenshot-2.png",
+    "https://raw.githubusercontent.com/saymondamasio/todos-mobile/main/.github/screenshot-3.png",
+    "https://raw.githubusercontent.com/saymondamasio/todos-mobile/main/.github/screenshot-4.png"
+  ]
+}
