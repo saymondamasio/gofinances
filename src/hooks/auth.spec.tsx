@@ -1,12 +1,12 @@
+/* eslint-disable import/first */
+import fetchMock from 'jest-fetch-mock'
+fetchMock.enableMocks()
+
 import { act, renderHook } from '@testing-library/react-hooks'
 import { startAsync } from 'expo-auth-session'
-import fetchMock from 'jest-fetch-mock'
 import { mocked } from 'jest-mock'
 import { AuthProvider } from '../contexts/AuthContext'
 import { useAuth } from './auth'
-
-// Coloque no inicio do arquivo para habilitar o mock do fetch.
-fetchMock.enableMocks()
 
 const userTest = {
   id: 'any_id',
@@ -15,25 +15,24 @@ const userTest = {
   photo: 'any_photo.png',
 }
 
-jest.mock('expo-auth-session')
+jest.mock('@react-native-async-storage/async-storage', () => ({
+  getItem: jest.fn(),
+  setItem: jest.fn(),
+}))
 
 describe('Auth hook', () => {
-  it('should be able to sign in with Google account existing', async () => {
-    const googleMocked = mocked(startAsync as any)
-    googleMocked.mockReturnValueOnce({
-      type: 'success',
-      params: {
-        access_token: 'any_token',
-      },
-    })
+  beforeEach(() => {
+    fetchMock.resetMocks()
+  })
 
+  it('should be able to sign in with Google account existing', async () => {
     fetchMock.mockResponseOnce(JSON.stringify(userTest))
 
     const { result, waitForNextUpdate } = renderHook(() => useAuth(), {
       wrapper: AuthProvider,
     })
 
-    act(async () => await result.current.signInWithGoogle())
+    await act(() => result.current.signInWithGoogle())
     await waitForNextUpdate()
 
     expect(result.current.user.email).toBe(userTest.email)

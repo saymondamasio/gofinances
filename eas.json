@@ -1,0 +1,30 @@
+{
+  "cli": {
+    "version": ">= 0.51.0"
+  },
+  "build": {
+    "development": {
+      "developmentClient": true,
+      "distribution": "internal"
+    },
+    "preview": {
+      "distribution": "internal",
+      "env": {
+        "CLIENT_ID": "",
+        "REDIRECT_URI": ""
+      },
+      "android": {
+        "buildType": "apk"
+      }
+    },
+    "production": {
+      "env": {
+        "CLIENT_ID": "",
+        "REDIRECT_URI": ""
+      }
+    }
+  },
+  "submit": {
+    "production": {}
+  }
+}
